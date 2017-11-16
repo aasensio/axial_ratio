@@ -113,10 +113,10 @@ if (__name__ == '__main__'):
     out.sample()
     out.doplot('data/big.samples')
 
-    # out.read_obs('data/small.dat')
-    # out.sample()
-    # out.doplot('data/small.samples')
+    out.read_obs('data/small.dat')
+    out.sample()
+    out.doplot('data/small.samples')
 
-    # out.read_obs('data/all.dat')
-    # out.sample()
-    # out.doplot('data/all.samples')
+    out.read_obs('data/all.dat')
+    out.sample()
+    out.doplot('data/all.samples')

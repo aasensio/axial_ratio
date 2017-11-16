@@ -123,8 +123,8 @@ if (__name__ == '__main__'):
     pl.close('all')
     out = galaxy()
 
-    out.read_obs('data/small.dat')
-    out.sample('data/small.samples')
+    out.read_obs('data/all.dat')
+    out.sample('data/all.samples')
 
     f, ax = pl.subplots(nrows=2, ncols=2, figsize=(8,8))
     ax[0,0].plot(out.trace['muCB'][:,0],out.trace['muCB'][:,1],'.',alpha=0.2)
