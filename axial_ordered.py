@@ -57,12 +57,21 @@ class galaxy(object):
         self.qobs = q + self.sigmaq * np.random.randn(self.n_galaxies)
 
     def read_obs(self, file):
+        """
+        Read the observations, that will be in a file with one or two columns
+        If only one column is present, use 0.04 as an estimated uncertainty for the axial ratio
+        """
         tmp = np.loadtxt(file)
-        self.sigmaq = 0.04
-        self.n_galaxies = len(tmp)
-        self.qobs = tmp
+        if (tmp.ndim == 1):            
+            self.n_galaxies = len(tmp)
+            self.sigmaq = np.ones(self.n_galaxies) * 0.04
+            self.qobs = tmp
+        if (tmp.ndim == 2):
+            self.n_galaxies, _ = tmp.shape
+            self.qobs = tmp[:,0]
+            self.sigmaq = tmp[:,1]
 
-    def sample(self, name_chain):
+    def sample(self, name_chain, noncentered=False):
         """
         Sample from the hierarchical model
         p(mu) ~ U(0,1)
@@ -92,15 +101,20 @@ class galaxy(object):
 
 # Priors for means and standard deviations. Perhaps one should play a little with the
 # priors for sdB and sdC because they are usually not very well constrained by data
-# One should also consider using a non-centered model: http://twiecki.github.io/blog/2017/02/08/bayesian-hierchical-non-centered/
             muCB_ = pm.Uniform('muCB_', lower=0.0, upper=1.0, testval=[0.3, 0.8], shape=2)
             muCB = pm.Deterministic('muCB', tt.sort(muCB_))
 
             sdCB = pm.HalfNormal('sdCB', sd=0.05, shape=2)
 
-            bounded_normal = pm.Bound(pm.Normal, lower=0.0, upper=1.0)
-            CB_ = bounded_normal('CB_', mu=muCB, sd=sdCB, testval=np.array([0.3,0.8]), shape=(self.n_galaxies,2))                        
-            CB = pm.Deterministic('CB', tt.sort(CB_, axis=1))
+# Use a non-centered model (http://twiecki.github.io/blog/2017/02/08/bayesian-hierchical-non-centered/)
+            if (noncentered):
+                offset = pm.Normal('offset', mu=0, sd=1, shape=(self.n_galaxies,2))
+                CB_ = pm.Deterministic('CB_', tt.clip(muCB + offset * sdCB, 0.0, 1.0))
+                CB = pm.Deterministic('CB', tt.sort(CB_, axis=1))
+            else:                
+                bounded_normal = pm.Bound(pm.Normal, lower=0.0, upper=1.0)
+                CB_ = bounded_normal('CB_', mu=muCB, sd=sdCB, testval=np.array([0.3,0.8]), shape=(self.n_galaxies,2))                        
+                CB = pm.Deterministic('CB', tt.sort(CB_, axis=1))
           
 # Now that we have all ingredients, compute q
             sin_theta = tt.sqrt(1.0 - mu**2)
@@ -123,8 +137,8 @@ if (__name__ == '__main__'):
     pl.close('all')
     out = galaxy()
 
-    out.read_obs('data/all.dat')
-    out.sample('data/all.samples')
+    out.read_obs('data/small_plus_uncer.dat')
+    out.sample('data/small_plus_uncer.samples', noncentered=True)
 
     f, ax = pl.subplots(nrows=2, ncols=2, figsize=(8,8))
     ax[0,0].plot(out.trace['muCB'][:,0],out.trace['muCB'][:,1],'.',alpha=0.2)

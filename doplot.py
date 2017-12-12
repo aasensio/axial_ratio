@@ -94,9 +94,9 @@ class galaxy(object):
         Do some plots
         """
         with self.model:
-            trace = pm.backends.text.load(name)
+            self.trace = pm.backends.text.load(name)
 
-        var = np.vstack([trace['muCB'][:,0], trace['muCB'][:,1], trace['sdCB'][:,0], trace['sdCB'][:,1]]).T
+        var = np.vstack([self.trace['muCB'][:,0], self.trace['muCB'][:,1], self.trace['sdCB'][:,0], self.trace['sdCB'][:,1]]).T
 
         corner.corner(var, labels=['$\mu_C$', '$\mu_B$', '$\sigma_C$','$\sigma_B$'], show_titles=True)
         

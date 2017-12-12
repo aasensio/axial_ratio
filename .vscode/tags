@@ -1,0 +1,36 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+__init__	../axial_ordered.py	/^    def __init__(self):$/;"	kind:member	line:8
+__init__	../doplot.py	/^    def __init__(self):$/;"	kind:member	line:8
+axial_ordered.py	../axial_ordered.py	1;"	kind:file	line:1
+axial_ratio	../axial_ordered.py	/^    def axial_ratio(self, B, C, cos_theta, phi):$/;"	kind:member	line:15
+axial_ratio	../doplot.py	/^    def axial_ratio(self, B, C, cos_theta, phi):$/;"	kind:member	line:14
+corner	../doplot.py	/^import corner$/;"	kind:namespace	line:5
+doplot	../doplot.py	/^    def doplot(self, name):$/;"	kind:member	line:92
+doplot.py	../doplot.py	1;"	kind:file	line:1
+galaxy	../axial_ordered.py	/^class galaxy(object):$/;"	kind:class	line:7
+galaxy	../doplot.py	/^class galaxy(object):$/;"	kind:class	line:7
+matplotlib	../axial_ordered.py	/^import matplotlib.pyplot as pl$/;"	kind:namespace	line:2
+matplotlib	../doplot.py	/^import matplotlib.pyplot as pl$/;"	kind:namespace	line:2
+mock	../axial_ordered.py	/^    def mock(self, muB, sigmaB, muC, sigmaC, noise, n_galaxies, phi_limit=np.pi\/2.0):$/;"	kind:member	line:28
+np	../axial_ordered.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../doplot.py	/^import numpy as np$/;"	kind:namespace	line:1
+out	../axial_ordered.py	/^    out = galaxy()$/;"	kind:variable	line:129
+out	../doplot.py	/^    out = galaxy()$/;"	kind:variable	line:110
+pl	../axial_ordered.py	/^import matplotlib.pyplot as pl$/;"	kind:namespace	line:2
+pl	../doplot.py	/^import matplotlib.pyplot as pl$/;"	kind:namespace	line:2
+pm	../axial_ordered.py	/^import pymc3 as pm$/;"	kind:namespace	line:3
+pm	../doplot.py	/^import pymc3 as pm$/;"	kind:namespace	line:3
+read_obs	../axial_ordered.py	/^    def read_obs(self, file):$/;"	kind:member	line:59
+read_obs	../doplot.py	/^    def read_obs(self, file):$/;"	kind:member	line:27
+sample	../axial_ordered.py	/^    def sample(self, name_chain, noncentered=False):$/;"	kind:member	line:65
+sample	../doplot.py	/^    def sample(self):$/;"	kind:member	line:42
+stop	../axial_ordered.py	/^from ipdb import set_trace as stop$/;"	kind:namespace	line:5
+theano	../axial_ordered.py	/^import theano.tensor as tt$/;"	kind:namespace	line:4
+theano	../doplot.py	/^import theano.tensor as tt$/;"	kind:namespace	line:4
+tt	../axial_ordered.py	/^import theano.tensor as tt$/;"	kind:namespace	line:4
+tt	../doplot.py	/^import theano.tensor as tt$/;"	kind:namespace	line:4
