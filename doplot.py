@@ -3,6 +3,8 @@ import matplotlib.pyplot as pl
 import pymc3 as pm
 import theano.tensor as tt
 import corner
+import seaborn as sns
+
 
 class galaxy(object):
     def __init__(self):
@@ -104,6 +106,23 @@ class galaxy(object):
 
         pl.savefig('{0}.png'.format(name))
 
+        # Just get the first N samples. We shuffle the
+        # arrays and get the subsamples
+        C = self.trace['CB'][:,:,0]
+        np.random.shuffle(C)
+        C_slice = C[0:200,:].flatten()
+        B = self.trace['CB'][:,:,1]
+        np.random.shuffle(B)
+        B_slice = B[0:200,:].flatten()
+
+        # First option
+        pl.plot(B_slice, C_slice, '.', alpha=0.002)
+        pl.show()
+
+        # KDE joint plot
+        sns.jointplot(C_slice, B_slice, kind='kde')
+        pl.show()
+
 
 if (__name__ == '__main__'):
     pl.close('all')
@@ -113,10 +132,10 @@ if (__name__ == '__main__'):
     out.sample()
     out.doplot('data/big.samples')
 
-    out.read_obs('data/small.dat')
-    out.sample()
-    out.doplot('data/small.samples')
+    # out.read_obs('data/small.dat')
+    # out.sample()
+    # out.doplot('data/small.samples')
 
-    out.read_obs('data/all.dat')
-    out.sample()
-    out.doplot('data/all.samples')
+    # out.read_obs('data/all.dat')
+    # out.sample()
+    # out.doplot('data/all.samples')
